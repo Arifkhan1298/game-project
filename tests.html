@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Test Suite — Strategy Game Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding: 2rem; max-width: 960px; margin: 0 auto; }
+    .test-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .test-summary-card { background: var(--bg-card); border: 1px solid var(--border-gold); padding: 1.5rem; border-radius: var(--border-radius-md); display: flex; gap: 2rem; margin-bottom: 2rem; }
+    .test-stat { display: flex; flex-direction: column; }
+    .test-stat-val { font-size: 2rem; font-weight: 800; }
+    .test-stat-lbl { font-size: 0.8rem; color: var(--text-muted); }
+    .test-item { background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem 1.25rem; border-radius: var(--border-radius-sm); margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+    .test-item.pass { border-left: 4px solid var(--color-success); }
+    .test-item.fail { border-left: 4px solid var(--color-error); background: rgba(239, 68, 68, 0.1); }
+    .badge-pass { background: rgba(16, 185, 129, 0.15); color: var(--color-success); font-weight: 700; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; }
+    .badge-fail { background: rgba(239, 68, 68, 0.2); color: var(--color-error); font-weight: 700; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+  <div class="test-header">
+    <div>
+      <h1 style="font-size: 2rem;">Automated Test Suite</h1>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">Strategy Game Portal — Official Test Harness</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+      <a href="index.html" class="btn btn-secondary btn-sm">← Back to Portal</a>
+      <button class="btn btn-primary btn-sm" id="rerun-btn">Rerun Tests</button>
+    </div>
+  </div>
+
+  <div class="test-summary-card">
+    <div class="test-stat">
+      <span class="test-stat-val" id="stat-total" style="color: var(--text-primary);">0</span>
+      <span class="test-stat-lbl">Total Tests</span>
+    </div>
+    <div class="test-stat">
+      <span class="test-stat-val" id="stat-passed" style="color: var(--color-success);">0</span>
+      <span class="test-stat-lbl">Passed</span>
+    </div>
+    <div class="test-stat">
+      <span class="test-stat-val" id="stat-failed" style="color: var(--color-error);">0</span>
+      <span class="test-stat-lbl">Failed</span>
+    </div>
+    <div class="test-stat">
+      <span class="test-stat-val" id="stat-rate" style="color: var(--accent-gold);">0%</span>
+      <span class="test-stat-lbl">Pass Rate</span>
+    </div>
+  </div>
+
+  <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">Execution Log</h2>
+  <div id="test-results-container">
+    <p style="color: var(--text-muted);">Running test suite...</p>
+  </div>
+
+  <!-- Engines (All 16 Games) -->
+  <script src="audio.js"></script>
+  <script src="storage.js"></script>
+  <script src="chess.js"></script>
+  <script src="tictactoe.js"></script>
+  <script src="connect4.js"></script>
+  <script src="reversi.js"></script>
+  <script src="minesweeper.js"></script>
+  <script src="memory.js"></script>
+  <script src="game_2048.js"></script>
+  <script src="game_snake.js"></script>
+  <script src="game_checkers.js"></script>
+  <script src="game_sudoku.js"></script>
+  <script src="game_tetris.js"></script>
+  <script src="game_pong.js"></script>
+  <script src="game_wordle.js"></script>
+  <script src="game_simon.js"></script>
+  <script src="game_battleship.js"></script>
+  <script src="game_breakout.js"></script>
+  <script src="ai.js"></script>
+  <script src="test_runner.js"></script>
+
+  <script>
+    async function execute() {
+      const runner = window.portalTestSuite;
+      const res = await runner.runAllTests();
+
+      document.getElementById('stat-total').textContent = res.total;
+      document.getElementById('stat-passed').textContent = res.passed;
+      document.getElementById('stat-failed').textContent = res.failed;
+      const rate = res.total > 0 ? Math.round((res.passed / res.total) * 100) : 0;
+      document.getElementById('stat-rate').textContent = rate + '%';
+
+      const container = document.getElementById('test-results-container');
+      container.innerHTML = res.results.map(item => `
+        <div class="test-item ${item.passed ? 'pass' : 'fail'}">
+          <span>${item.name}</span>
+          <span class="${item.passed ? 'badge-pass' : 'badge-fail'}">${item.passed ? 'PASS ✓' : 'FAIL ✕'}</span>
+        </div>
+      `).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', execute);
+    document.getElementById('rerun-btn').addEventListener('click', execute);
+  </script>
+</body>
+</html>

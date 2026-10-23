@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Strategy Game Portal — Ultimate Edition. Premium gaming platform featuring Chess, Tic-Tac-Toe, Connect Four, Reversi, Minesweeper, and Memory Match with intelligent AI, progression, and tournaments.">
+  <title>Strategy Game Portal — Ultimate Edition</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Glow Canvas / Atmosphere -->
+  <div class="ambient-background" aria-hidden="true"></div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <button class="menu-toggle-btn" id="menu-toggle" aria-label="Toggle Navigation Sidebar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="brand-container" id="brand-home-btn" role="button" tabindex="0">
+        <div class="brand-logo-icon">♟</div>
+        <div class="brand-text-block">
+          <span class="brand-title">STRATEGY PORTAL</span>
+          <span class="brand-badge">ULTIMATE EDITION</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- Quick Sound Toggle -->
+      <button class="header-action-btn" id="header-sound-btn" title="Toggle Audio FX" aria-label="Toggle Sound Effects">
+        <span id="sound-icon">🔊</span>
+      </button>
+
+      <!-- Theme Toggle -->
+      <button class="header-action-btn" id="header-theme-btn" title="Toggle Dark/Light Theme" aria-label="Toggle Dark/Light Theme">
+        <span id="theme-icon">🌙</span>
+      </button>
+
+      <!-- User Profile Status Pill (Direct Profile - No Login Required) -->
+      <div class="user-status-pill" id="header-user-pill" role="button" tabindex="0" title="Strategist Profile">
+        <div class="user-avatar-mini" id="header-avatar">⚡</div>
+        <div class="user-info-mini">
+          <span class="user-name-mini" id="header-username">Player One</span>
+          <span class="user-level-mini" id="header-level">LVL 1</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Layout -->
+  <div class="app-container">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-content-top">
+        <!-- Main Section -->
+        <div class="sidebar-nav-group">
+          <span class="sidebar-section-title">Navigation</span>
+          <a class="nav-item active" data-view="home" id="nav-home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-text">Home</span>
+          </a>
+          <a class="nav-item" data-view="dashboard" id="nav-dashboard">
+            <span class="nav-icon">📊</span>
+            <span class="nav-text">Dashboard</span>
+          </a>
+          <a class="nav-item" data-view="library" id="nav-library">
+            <span class="nav-icon">🎮</span>
+            <span class="nav-text">Game Library</span>
+            <span class="nav-badge">16 Games</span>
+          </a>
+          <a class="nav-item" data-view="continue" id="nav-continue">
+            <span class="nav-icon">⏯️</span>
+            <span class="nav-text">Continue</span>
+            <span class="nav-badge" id="continue-count-badge" style="display: none;">0</span>
+          </a>
+        </div>
+
+        <!-- Competition Section -->
+        <div class="sidebar-nav-group">
+          <span class="sidebar-section-title">Competition</span>
+          <a class="nav-item" data-view="ai-arena" id="nav-ai-arena">
+            <span class="nav-icon">🤖</span>
+            <span class="nav-text">AI Arena</span>
+          </a>
+          <a class="nav-item" data-view="multiplayer" id="nav-multiplayer">
+            <span class="nav-icon">👥</span>
+            <span class="nav-text">Multiplayer</span>
+          </a>
+          <a class="nav-item" data-view="tournaments" id="nav-tournaments">
+            <span class="nav-icon">🏆</span>
+            <span class="nav-text">Tournaments</span>
+          </a>
+          <a class="nav-item" data-view="challenges" id="nav-challenges">
+            <span class="nav-icon">🎯</span>
+            <span class="nav-text">Challenges</span>
+          </a>
+          <a class="nav-item" data-view="leaderboard" id="nav-leaderboard">
+            <span class="nav-icon">🥇</span>
+            <span class="nav-text">Leaderboard</span>
+          </a>
+        </div>
+
+        <!-- Progression Section -->
+        <div class="sidebar-nav-group">
+          <span class="sidebar-section-title">Career</span>
+          <a class="nav-item" data-view="achievements" id="nav-achievements">
+            <span class="nav-icon">🎖️</span>
+            <span class="nav-text">Achievements</span>
+          </a>
+          <a class="nav-item" data-view="history" id="nav-history">
+            <span class="nav-icon">📜</span>
+            <span class="nav-text">Match History</span>
+          </a>
+          <a class="nav-item" data-view="profile" id="nav-profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-text">Player Profile</span>
+          </a>
+        </div>
+
+        <!-- System Section -->
+        <div class="sidebar-nav-group">
+          <span class="sidebar-section-title">System</span>
+          <a class="nav-item" data-view="settings" id="nav-settings">
+            <span class="nav-icon">⚙️</span>
+            <span class="nav-text">Settings</span>
+          </a>
+          <a class="nav-item" data-view="rules" id="nav-rules">
+            <span class="nav-icon">📖</span>
+            <span class="nav-text">Game Rules</span>
+          </a>
+          <a class="nav-item" data-view="about" id="nav-about">
+            <span class="nav-icon">ℹ️</span>
+            <span class="nav-text">About</span>
+          </a>
+          <a class="nav-item" data-view="tests" id="nav-tests">
+            <span class="nav-icon">🧪</span>
+            <span class="nav-text">Test Suite</span>
+            <span class="nav-badge" style="background: var(--color-success);">75+ Tests</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="system-status-indicator">
+          <div class="status-dot"></div>
+          <span>Offline Ready (100% Client Engine)</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area (SPA Panels) -->
+    <main class="main-content" id="main-content">
+
+      <!-- ================================================================== -->
+      <!-- VIEW 1: HOME / LANDING PAGE -->
+      <!-- ================================================================== -->
+      <section class="view-panel active-view" id="view-home">
+        <div class="hero-section">
+          <div class="hero-content">
+            <div class="hero-badge">⚡ Next-Gen Strategy Hub</div>
+            <h1 class="hero-title">
+              THINK SMART.<br>
+              PLAY STRATEGIC.<br>
+              <span class="text-gradient-gold">DOMINATE THE BOARD.</span>
+            </h1>
+            <p class="hero-subtitle">
+              Experience the pinnacle of tactical, puzzle, and arcade gaming. 16 authoritative disciplines with intelligent AI, career progression, and zero-latency local play.
+            </p>
+            <div class="hero-cta-group">
+              <button class="btn btn-primary btn-lg" id="hero-play-chess-btn">
+                <span>♟ Play Chess Now</span>
+              </button>
+              <button class="btn btn-secondary btn-lg" id="hero-explore-btn">
+                <span>Explore 16 Games</span>
+              </button>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric-item">
+                <span class="metric-val" id="metric-games-count">16</span>
+                <span class="metric-lbl">Official Games</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val" id="metric-achieve-count">10</span>
+                <span class="metric-lbl">Achievements</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">100%</span>
+                <span class="metric-lbl">Offline Capable</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-illustration">
+            <div class="hero-visual-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; color: var(--accent-gold); font-size: 0.9rem;">TACTICAL ARENA</span>
+                <span class="game-status-chip">ALPHA-BETA AI</span>
+              </div>
+              <div class="hero-board-mini-grid">
+                <div class="hero-board-cell gold-active">♞</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell blue-active">♛</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell gold-active">♟</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell blue-active">♜</div>
+                <div class="hero-board-cell blue-active">●</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell gold-active">✕</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell gold-active">♚</div>
+                <div class="hero-board-cell">·</div>
+                <div class="hero-board-cell blue-active">♝</div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary);">
+                <span>Depth: 4 Ply</span>
+                <span style="color: var(--color-success);">Ready to Play</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Games Showcase -->
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Featured Strategy & Arcade Games</h2>
+            <p class="section-subtitle">16 diverse disciplines engineered with zero shortcuts.</p>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="home-view-all-games-btn">View All 16 Games →</button>
+        </div>
+
+        <div class="games-grid" id="home-featured-games-grid">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- How It Works Section -->
+        <div style="margin: 4rem 0;">
+          <h2 class="section-title" style="margin-bottom: 1.5rem;">How It Works</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+            <div class="portal-card">
+              <div style="font-size: 2rem; margin-bottom: 0.75rem;">1️⃣</div>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Select Your Discipline</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Choose from Chess, Connect Four, Reversi, Tic-Tac-Toe, Minesweeper, or Memory Match.</p>
+            </div>
+            <div class="portal-card">
+              <div style="font-size: 2rem; margin-bottom: 0.75rem;">2️⃣</div>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Choose Game Mode</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Challenge our tactical AI (Easy, Medium, Hard) or battle a friend in local Pass & Play mode.</p>
+            </div>
+            <div class="portal-card">
+              <div style="font-size: 2rem; margin-bottom: 0.75rem;">3️⃣</div>
+              <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem;">Gain XP & Unlock Trophies</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Every legitimate move and victory awards real XP, advancing your career level and leaderboards.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 2: DASHBOARD -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-dashboard">
+        <div class="dashboard-hero-card">
+          <div class="dash-user-welcome">
+            <div class="dash-avatar-large" id="dash-avatar">👑</div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <h2 style="font-size: 1.75rem;" id="dash-greeting">Welcome, Guest Strategist</h2>
+                <span class="game-status-chip" id="dash-guest-tag">Guest Account</span>
+              </div>
+              <div class="dash-xp-progress-bar-container">
+                <div class="progress-label-flex">
+                  <span id="dash-level-text">Level 1 Strategist</span>
+                  <span id="dash-xp-text">0 / 250 XP</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="dash-xp-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="dash-quick-chess-btn">Quick Chess Match</button>
+          </div>
+        </div>
+
+        <!-- Quick Stats Grid -->
+        <div class="stats-summary-grid">
+          <div class="stat-box">
+            <div class="stat-icon-wrapper">🎮</div>
+            <div class="stat-info-col">
+              <span class="stat-number" id="dash-stat-played">0</span>
+              <span class="stat-label">Total Matches</span>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon-wrapper green">🏆</div>
+            <div class="stat-info-col">
+              <span class="stat-number" id="dash-stat-wins">0</span>
+              <span class="stat-label">Victories</span>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon-wrapper blue">📈</div>
+            <div class="stat-info-col">
+              <span class="stat-number" id="dash-stat-winrate">0%</span>
+              <span class="stat-label">Win Rate</span>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon-wrapper purple">🎖️</div>
+            <div class="stat-info-col">
+              <span class="stat-number" id="dash-stat-achieve">0 / 10</span>
+              <span class="stat-label">Achievements</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Columns -->
+        <div class="dashboard-columns">
+          <!-- Left Column: Active Game & Daily Challenges -->
+          <div>
+            <!-- Active Game Card -->
+            <div class="portal-card" id="dash-active-game-card" style="margin-bottom: 2rem; display: none;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="font-size: 1.15rem; color: var(--accent-gold);">In-Progress Match</h3>
+                <span class="game-status-chip">Saved State</span>
+              </div>
+              <p id="dash-active-game-desc" style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                You have a saved game in progress.
+              </p>
+              <div style="display: flex; gap: 0.75rem;">
+                <button class="btn btn-primary btn-sm" id="dash-resume-active-btn">Resume Playing</button>
+                <button class="btn btn-danger btn-sm" id="dash-discard-active-btn">Abandon</button>
+              </div>
+            </div>
+
+            <!-- Daily Challenges -->
+            <div class="portal-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+                <h3 style="font-size: 1.2rem;">Daily Objectives</h3>
+                <span style="font-size: 0.8rem; color: var(--accent-gold);">Resets Midnight</span>
+              </div>
+              <div id="dash-challenges-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                <!-- Challenges injected via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Recent Matches -->
+          <div>
+            <div class="portal-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3 style="font-size: 1.2rem;">Recent Matches</h3>
+                <a href="#" id="dash-view-history-link" style="color: var(--accent-gold); font-size: 0.8rem; text-decoration: none;">View All →</a>
+              </div>
+              <div id="dash-recent-history-list">
+                <p style="color: var(--text-muted); font-size: 0.85rem;">No games completed yet. Start your first game in the Game Library!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 3: GAME LIBRARY -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-library">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Official Game Library</h2>
+            <p class="section-subtitle">Select any game to launch immediately. 16 authoritative disciplines running 100% locally.</p>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="library-filter-bar" id="library-filter-bar">
+          <button class="filter-pill active" data-filter="all">All Games (16)</button>
+          <button class="filter-pill" data-filter="Strategy">Board & Strategy (5)</button>
+          <button class="filter-pill" data-filter="Arcade">Arcade & Action (4)</button>
+          <button class="filter-pill" data-filter="Puzzle">Puzzles & Logic (5)</button>
+          <button class="filter-pill" data-filter="Word">Word & Memory (2)</button>
+        </div>
+
+        <div class="games-grid" id="full-library-grid">
+          <!-- Injected via app.js -->
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 4: THE GAME SHELL (Active Play Area) -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-game">
+        <div class="game-shell-container">
+          
+          <!-- Game Shell Header -->
+          <div class="game-shell-header">
+            <div class="game-meta-group">
+              <button class="btn btn-secondary btn-sm" id="game-back-to-library-btn">← Library</button>
+              <div class="game-title-badge" id="shell-game-title">
+                <span id="shell-game-icon">♟</span>
+                <span id="shell-game-name">Chess</span>
+              </div>
+              <span class="game-status-chip" id="shell-game-mode-chip">vs Medium AI</span>
+            </div>
+
+            <div class="game-controls-toolbar">
+              <!-- AI Difficulty selector -->
+              <select id="shell-difficulty-select" class="btn btn-secondary btn-sm" aria-label="Select AI Difficulty">
+                <option value="easy">AI: Easy</option>
+                <option value="medium" selected>AI: Medium</option>
+                <option value="hard">AI: Hard (Minimax)</option>
+              </select>
+
+              <!-- Mode selector -->
+              <select id="shell-mode-select" class="btn btn-secondary btn-sm" aria-label="Select Game Mode">
+                <option value="ai" selected>1 Player (vs AI)</option>
+                <option value="local">2 Players (Pass & Play)</option>
+              </select>
+
+              <button class="btn btn-secondary btn-sm" id="shell-restart-btn" title="Restart Current Match">🔄 Restart</button>
+              <button class="btn btn-secondary btn-sm" id="shell-undo-btn" title="Undo Last Move">↩ Undo</button>
+              <button class="btn btn-secondary btn-sm" id="shell-flip-btn" style="display: none;" title="Flip Board">↕ Flip</button>
+            </div>
+          </div>
+
+          <!-- Game Stage Layout: Viewport + Sidebar -->
+          <div class="game-stage-layout">
+            
+            <!-- Left: Board Viewport -->
+            <div class="game-board-viewport">
+              
+              <!-- Top Player Info -->
+              <div class="player-vs-bar" style="margin-bottom: 1rem;">
+                <div class="player-vs-card" id="player-opponent-card">
+                  <div class="player-turn-dot turn-black" id="opponent-turn-indicator"></div>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.9rem;" id="opponent-name">Computer (AI)</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);" id="opponent-role">Black / Player 2</div>
+                  </div>
+                </div>
+                <div class="game-clock" id="opponent-clock">05:00</div>
+              </div>
+
+              <!-- Dedicated Mount Container for Active Game Board -->
+              <div id="active-game-board-mount" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                <!-- Dynamically rendered board (Chess, TTT, Connect4, Reversi, Minesweeper, Memory) -->
+              </div>
+
+              <!-- Bottom Player Info -->
+              <div class="player-vs-bar" style="margin-top: 1rem;">
+                <div class="player-vs-card active-turn" id="player-user-card">
+                  <div class="player-turn-dot turn-white" id="user-turn-indicator"></div>
+                  <div>
+                    <div style="font-weight: 700; font-size: 0.9rem;" id="user-play-name">You (Strategist)</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);" id="user-role">White / Player 1</div>
+                  </div>
+                </div>
+                <div class="game-clock" id="user-clock">05:00</div>
+              </div>
+
+            </div>
+
+            <!-- Right: Game Sidebar Panel -->
+            <div class="game-sidebar-panel">
+              <!-- Status & Alert box -->
+              <div class="portal-card" style="padding: 1.25rem;">
+                <span class="sidebar-section-title" style="padding: 0;">Game Status</span>
+                <div id="game-status-message" style="font-weight: 600; font-size: 1rem; color: var(--accent-gold); margin-top: 0.5rem;">
+                  Your turn to move.
+                </div>
+                <div id="game-substatus-message" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">
+                  Select a piece or cell to begin.
+                </div>
+              </div>
+
+              <!-- Game Specific Stats Widget (Mine Count / Memory Pairs / Reversi Score) -->
+              <div class="portal-card" id="game-widget-panel" style="padding: 1.25rem;">
+                <span class="sidebar-section-title" style="padding: 0;">Match Stats</span>
+                <div id="game-widget-content" style="margin-top: 0.5rem; font-size: 0.9rem;">
+                  <div style="display: flex; justify-content: space-around; font-size: 0.95rem; font-weight: 700;">
+                    <span style="color: #cbd5e1;">⚪ White: 16 pcs</span>
+                    <span style="color: var(--accent-gold);">⚖️ Material: Even</span>
+                    <span style="color: #94a3b8;">⚫ Black: 16 pcs</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Move History Log -->
+              <div class="portal-card" style="padding: 1.25rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                  <span class="sidebar-section-title" style="padding: 0;">Move Notation</span>
+                  <span id="move-count-indicator" style="font-size: 0.75rem; color: var(--text-muted);">0 Moves</span>
+                </div>
+                <div class="move-history-box" id="game-move-history-box">
+                  <table class="move-list-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 25%;">#</th>
+                        <th style="width: 37%;">White</th>
+                        <th style="width: 38%;">Black</th>
+                      </tr>
+                    </thead>
+                    <tbody id="move-history-tbody">
+                      <tr>
+                        <td colspan="3" style="text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 0.75rem 0.5rem; font-style: italic;">
+                          ⚡ Tactical match ready. Awaiting opening move...
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Rules & Tips snippet -->
+              <div class="portal-card" style="padding: 1rem;">
+                <div style="font-size: 0.8rem; color: var(--text-muted);" id="game-quick-tip">
+                  💡 Tip: Control the center squares to maximize tactical flexibility.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 5: CONTINUE PLAYING -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-continue">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Continue Saved Games</h2>
+            <p class="section-subtitle">Pick up right where you left off. State is persisted automatically.</p>
+          </div>
+        </div>
+
+        <div id="continue-games-list" class="games-grid">
+          <!-- Populated via JS -->
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 6: AI ARENA -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-ai-arena">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Advanced AI Arena</h2>
+            <p class="section-subtitle">Challenge our algorithmic engines. All AI runs client-side with zero external API dependencies.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="portal-card">
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--color-success);">🟢 Easy (Novice)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              Friendly heuristic engine. Makes occasional tactical concessions to let beginners experiment with openings and fundamentals.
+            </p>
+            <span class="game-status-chip">0 Ply Search</span>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--accent-gold);">🟡 Medium (Tactician)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              Calculates 2-ply positions, enforces immediate win-blocks, and applies piece-square positional bonuses for central superiority.
+            </p>
+            <span class="game-status-chip">2 Ply Search</span>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--color-error);">🔴 Hard (Master AI)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              Deep Minimax with Alpha-Beta Pruning, mobility heuristics, and specialized position matrices. Provides ruthless competitive play.
+            </p>
+            <span class="game-status-chip">3-5 Ply Alpha-Beta</span>
+          </div>
+        </div>
+
+        <div class="portal-card">
+          <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Launch AI Arena Match</h3>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+            <select id="arena-game-select" class="btn btn-secondary" style="min-width: 180px;">
+              <option value="chess">Chess</option>
+              <option value="tictactoe">Tic-Tac-Toe</option>
+              <option value="connect4">Connect Four</option>
+              <option value="reversi">Reversi / Othello</option>
+            </select>
+            <select id="arena-difficulty-select" class="btn btn-secondary" style="min-width: 160px;">
+              <option value="easy">Easy (Novice)</option>
+              <option value="medium" selected>Medium (Tactician)</option>
+              <option value="hard">Hard (Master AI)</option>
+            </select>
+            <button class="btn btn-primary" id="arena-launch-match-btn">Enter Arena →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 7: MULTIPLAYER -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-multiplayer">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Multiplayer Hub</h2>
+            <p class="section-subtitle">Play head-to-head with friends locally or configure local room sessions.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+          <!-- Local Pass & Play -->
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">👥 Local Pass & Play</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Share the keyboard or screen with a friend on this device. Official rules and full turn timers are enforced.
+            </p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button class="btn btn-primary btn-sm" onclick="window.portalApp.startLocalGame('chess')">Play Chess (2P)</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.portalApp.startLocalGame('connect4')">Play Connect 4 (2P)</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.portalApp.startLocalGame('reversi')">Play Reversi (2P)</button>
+              <button class="btn btn-secondary btn-sm" onclick="window.portalApp.startLocalGame('tictactoe')">Play Tic-Tac-Toe (2P)</button>
+            </div>
+          </div>
+
+          <!-- Room Code Session Simulator -->
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.75rem;">📡 Peer Room Session</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              Generate a private room code or enter an opponent's code for synchronous turn exchange.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="text" id="multiplayer-room-input" placeholder="Enter Room Code (e.g. RM-892)" class="btn btn-secondary" style="flex-grow: 1; text-align: left; text-transform: uppercase;">
+                <button class="btn btn-electric btn-sm" id="multiplayer-join-btn">Join</button>
+              </div>
+              <button class="btn btn-secondary btn-sm" id="multiplayer-create-room-btn">Create New Private Room</button>
+              <div id="room-status-output" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                Local WebSocket/P2P mode active.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 8: TOURNAMENT SYSTEM -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-tournaments">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Championship Tournaments</h2>
+            <p class="section-subtitle">Single-elimination championship brackets with automated matchmaking and standings.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" id="create-tournament-btn">+ Create New Tournament</button>
+        </div>
+
+        <div class="portal-card" style="margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+            <div>
+              <h3 style="font-size: 1.3rem;" id="active-tournament-title">Autumn Grandmaster Cup (Chess)</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);" id="active-tournament-desc">8-Player Single Elimination Championship</p>
+            </div>
+            <button class="btn btn-electric btn-sm" id="sim-tournament-round-btn">Advance Round →</button>
+          </div>
+
+          <!-- Tournament Bracket Visualizer -->
+          <div class="tournament-bracket-view" id="tournament-bracket-display">
+            <!-- Bracket nodes injected via app.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 9: DAILY CHALLENGES -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-challenges">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Daily Tactical Challenges</h2>
+            <p class="section-subtitle">Complete daily missions to earn career XP and climb the master leaderboards.</p>
+          </div>
+        </div>
+
+        <div class="games-grid" id="full-challenges-grid">
+          <!-- Injected via app.js -->
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 10: LEADERBOARD & RANKINGS -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-leaderboard">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Player Leaderboard</h2>
+            <p class="section-subtitle">Rankings calculated strictly from verified local match results.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-secondary btn-sm active" id="lb-tab-xp">Top XP</button>
+            <button class="btn btn-secondary btn-sm" id="lb-tab-wins">Most Wins</button>
+            <button class="btn btn-secondary btn-sm" id="lb-tab-rate">Win Rate</button>
+          </div>
+        </div>
+
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 10%;">Rank</th>
+                <th style="width: 35%;">Strategist</th>
+                <th style="width: 15%;">Level</th>
+                <th style="width: 15%;">Played</th>
+                <th style="width: 15%;">Victories</th>
+                <th style="width: 10%;">Score</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-tbody">
+              <!-- Injected via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 11: ACHIEVEMENTS -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-achievements">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Strategic Accomplishments</h2>
+            <p class="section-subtitle">Ten verifiable milestones awarded solely when conditions are met.</p>
+          </div>
+          <span class="game-status-chip" id="achievements-summary-chip">0 / 10 Unlocked</span>
+        </div>
+
+        <div class="achievements-grid" id="achievements-full-grid">
+          <!-- Injected via app.js -->
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 12: MATCH HISTORY -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-history">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Verified Match History</h2>
+            <p class="section-subtitle">Chronological ledger of your completed games, moves, and outcomes.</p>
+          </div>
+        </div>
+
+        <div class="data-table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Game</th>
+                <th>Opponent</th>
+                <th>Difficulty</th>
+                <th>Outcome</th>
+                <th>Moves</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody id="history-full-tbody">
+              <!-- Injected via app.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 13: PLAYER PROFILE -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-profile">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Player Dossier</h2>
+            <p class="section-subtitle">Review personal career stats, customize your player name, and modify avatar.</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-primary btn-sm" id="profile-edit-btn">⚡ Edit Profile</button>
+          </div>
+        </div>
+
+        <div class="dashboard-hero-card" style="margin-bottom: 2rem;">
+          <div class="dash-user-welcome">
+            <div class="dash-avatar-large" id="profile-avatar-display">⚡</div>
+            <div>
+              <h2 id="profile-display-name">Player One</h2>
+              <div style="display: flex; gap: 0.75rem; margin-top: 0.25rem;">
+                <span class="brand-badge" id="profile-role-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--color-success); border-color: var(--color-success);">Active Strategist</span>
+                <span style="font-size: 0.8rem; color: var(--text-muted);" id="profile-joined-text">Joined: Today</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-gold);" id="profile-total-xp">0 XP</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Career Progression</div>
+          </div>
+        </div>
+
+        <!-- Discipline Breakdown Grid -->
+        <h3 style="font-size: 1.25rem; margin-bottom: 1.25rem;">Discipline Breakdown</h3>
+        <div class="stats-summary-grid" id="profile-breakdown-grid">
+          <!-- Injected via app.js -->
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 14: SETTINGS -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-settings">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Portal Preferences</h2>
+            <p class="section-subtitle">Configure audio synthesis, theme palette, and accessibility options.</p>
+          </div>
+        </div>
+
+        <div style="max-width: 640px; display: flex; flex-direction: column; gap: 1.5rem;">
+          <!-- Sound Settings -->
+          <div class="portal-card">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1rem;">🔊 Audio & Sound FX</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span>Procedural Web Audio FX</span>
+              <input type="checkbox" id="setting-sound-enabled" checked style="width: 20px; height: 20px; cursor: pointer;">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Volume Level</span>
+              <input type="range" id="setting-volume-slider" min="0" max="1" step="0.05" value="0.5" style="cursor: pointer;">
+            </div>
+          </div>
+
+          <!-- Display & Accessibility -->
+          <div class="portal-card">
+            <h3 style="font-size: 1.15rem; margin-bottom: 1rem;">🎨 Visuals & Accessibility</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span>Visual Theme</span>
+              <select id="setting-theme-select" class="btn btn-secondary btn-sm">
+                <option value="dark" selected>Midnight Dark</option>
+                <option value="light">Refined Light</option>
+              </select>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span>Respect Reduced Motion</span>
+              <input type="checkbox" id="setting-reduced-motion" style="width: 20px; height: 20px; cursor: pointer;">
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Default AI Level</span>
+              <select id="setting-default-difficulty" class="btn btn-secondary btn-sm">
+                <option value="easy">Easy (Novice)</option>
+                <option value="medium" selected>Medium (Tactician)</option>
+                <option value="hard">Hard (Master AI)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Data Management -->
+          <div class="portal-card">
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--color-error);">⚠️ Local Data Management</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              Reset all locally persisted user accounts, match history, and progression.
+            </p>
+            <button class="btn btn-danger btn-sm" id="setting-reset-data-btn">Reset All Portal Data</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 15: GAME RULES & HELP -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-rules">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Authoritative Game Rules & Guides</h2>
+            <p class="section-subtitle">Complete reference documentation for all six strategic disciplines.</p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">♟ Standard Chess</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Place the opponent's King under attack such that no legal escape move exists (Checkmate).<br>
+              <strong>Special Rules Implemented:</strong><br>
+              • <em>Castling:</em> King moves two squares toward a rook that has not yet moved, provided no squares between are occupied or attacked.<br>
+              • <em>En Passant:</em> A pawn advancing two squares may be captured diagonally as if it had only moved one square by an enemy pawn on the adjacent file immediately on the following move.<br>
+              • <em>Promotion:</em> Reaching the 8th rank allows choice of Queen, Rook, Bishop, or Knight.<br>
+              • <em>Draws:</em> Stalemate, 50-move rule, threefold repetition, and insufficient mating material.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🔴 Connect Four</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Be the first player to form a horizontal, vertical, or diagonal line of four consecutive discs in a 7-column by 6-row vertical grid.<br>
+              <strong>Physics:</strong> Discs drop by gravity to the lowest unoccupied space in the chosen column.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">⚪ Reversi (Othello)</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Have the majority of your colored discs on the 8x8 board at game end.<br>
+              <strong>Rules:</strong> Each move must trap one or more opponent discs between your newly placed disc and another existing disc of your color. Trapped discs are flipped. If you have no legal move, your turn is passed.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">💣 Minesweeper</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Reveal all safe cells on the grid without detonating any hidden mines.<br>
+              <strong>Guaranteed Safe Click:</strong> The first click is 100% safe, clearing an automatic 3x3 zone.<br>
+              <strong>Controls:</strong> Left-click to reveal. Right-click (or flag button) to plant/remove hazard flags. Numbers denote exact adjacent mine counts.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🃏 Memory Match</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Match all identical pairs of strategic relics in the fewest moves and fastest time. Unmatched card pairs flip face-down after a brief inspection window.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">✕ Tic-Tac-Toe</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Place three matching marks in a horizontal, vertical, or diagonal line on the 3x3 grid. Hard mode features an optimal unyielding Minimax agent.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🔢 2048 Number Merge</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Slide tiles across the 4x4 grid. When two tiles with the same number collide, they merge into one with double the value. Reach the legendary 2048 tile to achieve victory!
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🐍 Cyber Retro Snake</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Pilot the cyber serpent across the digital grid. Consume neon nutrients (+10 pts) and rare Golden Power Gems (+50 pts) to grow longer while avoiding collisions with perimeter barriers and your own tail.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">👑 Checkers (Draughts)</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Capture all opponent checkers or leave them with no legal moves. Jump over enemy pieces diagonally to capture them. Reach the furthest row to crown your piece as a King with multi-directional mobility!
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🧩 Sudoku Master</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Fill the 9x9 grid so every row, column, and 3x3 box contains all digits from 1 to 9 without duplication. Features pencil notes, real-time conflict checking, and tactical hints.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🧱 Neon Tetris (Brick Fall)</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Rotate and place falling tetromino blocks to form complete horizontal lines without gaps. Features ghost projection, piece holding (Hold queue), and high-level drop speed acceleration.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🏓 Cyber Pong</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Deflect the high-speed cyber orb past the opponent's paddle. Utilize paddle spin and angular velocity to outmaneuver the reactive AI. First to 5 points claims match victory!
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🔤 Wordle Guess</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Deduce the secret 5-letter word in 6 attempts or fewer. Green tiles indicate correct letters in the correct position; Yellow indicates correct letters in the wrong position; Gray indicates letters not present.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">💡 Simon Says Memory</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Memorize and replicate increasingly complex sequences of synthesized audio-visual pulses across four glowing neon quadrants.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🚢 Battleship Fleet Radar</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Command a naval fleet on a 10x10 radar grid. Strategically position your 5 warships and launch artillery scans to locate and sink the enemy fleet before your own is eliminated.
+            </p>
+          </div>
+
+          <div class="portal-card">
+            <h3 style="font-size: 1.25rem; color: var(--accent-gold); margin-bottom: 0.5rem;">🕹️ Arcade Breakout</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>Objective:</strong> Demolish layers of colorful bricks with bouncing kinetic energy orbs. Catch falling power-up capsules (Widened Paddle, Multi-Ball, Laser Cannons) and clear the sector before losing your 3 lives.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 16: ABOUT -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-about">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">About Strategy Game Portal</h2>
+            <p class="section-subtitle">Production-quality engineering and zero-shortcut game development.</p>
+          </div>
+        </div>
+
+        <div class="portal-card" style="line-height: 1.7; font-size: 0.95rem; color: var(--text-secondary);">
+          <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 0.75rem;">Project Vision & Architecture</h3>
+          <p style="margin-bottom: 1rem;">
+            Strategy Game Portal is an authoritative web application combining classical board game rules with modern visual design, algorithmic AI opponents, and local career progression.
+          </p>
+          <p style="margin-bottom: 1rem;">
+            <strong>Core Architecture:</strong><br>
+            • Pure Native Web Standards: HTML5, CSS3 Variables, Vanilla JavaScript ES6+.<br>
+            • Procedural Web Audio API: Zero external sound asset dependencies.<br>
+            • Deterministic State Engine: Fully validated moves, check detection, and fifty-move draw logic.<br>
+            • Zero Fabricated Statistics: Every win, achievement, and record is genuinely calculated.
+          </p>
+          <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+            Strategy Game Portal — Ultimate Edition. Think Smart. Play Strategic. Dominate the Board.
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================== -->
+      <!-- VIEW 17: AUTOMATED TEST SUITE -->
+      <!-- ================================================================== -->
+      <section class="view-panel" id="view-tests">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Automated Verification Suite</h2>
+            <p class="section-subtitle">Real-time execution of 75+ unit & integration tests across all 16 games, rules, and data layers.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" id="run-app-tests-btn">▶ Run All Tests (16 Games)</button>
+        </div>
+
+        <div class="portal-card" style="display: flex; gap: 2.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <div>
+            <div style="font-size: 2rem; font-weight: 800;" id="app-test-total">78</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Total Tests</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; font-weight: 800; color: var(--color-success);" id="app-test-passed">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Passed</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; font-weight: 800; color: var(--color-error);" id="app-test-failed">0</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Failed</div>
+          </div>
+          <div>
+            <div style="font-size: 2rem; font-weight: 800; color: var(--accent-gold);" id="app-test-rate">0%</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Pass Rate</div>
+          </div>
+        </div>
+
+        <div id="app-test-results-container" style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <p style="color: var(--text-secondary);">Click "Run All Tests" to execute the test suite live in your browser.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================================================================== -->
+  <!-- MODALS -->
+  <!-- ==================================================================== -->
+
+  <!-- 1. Profile Edit Modal (Direct Profile Management - No Login Required) -->
+  <div class="modal-backdrop" id="profile-edit-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size: 1.3rem;">Edit Strategist Profile</h3>
+        <button class="modal-close-btn" id="profile-edit-modal-close">×</button>
+      </div>
+      <div>
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem;">Display Name</label>
+          <input type="text" id="profile-input-name" class="btn btn-secondary" style="width: 100%; text-align: left;" placeholder="Enter your player name">
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem;">Avatar Icon</label>
+          <div style="display: flex; gap: 0.5rem; font-size: 1.5rem; flex-wrap: wrap;" id="profile-avatar-picker">
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="⚡">⚡</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="👑">👑</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="♟️">♟️</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="🧙">🧙</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="🏹">🏹</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="🛡️">🛡️</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="🐉">🐉</span>
+            <span class="btn btn-secondary btn-sm avatar-pick" data-avatar="🚀">🚀</span>
+          </div>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-size: 0.85rem; margin-bottom: 0.35rem;">Favorite Game</label>
+          <select id="profile-select-favorite" class="btn btn-secondary" style="width: 100%;">
+            <option value="chess">Standard Chess</option>
+            <option value="tictactoe">Tic-Tac-Toe</option>
+            <option value="connect4">Connect Four</option>
+            <option value="reversi">Reversi / Othello</option>
+            <option value="minesweeper">Minesweeper</option>
+            <option value="memory">Memory Match</option>
+            <option value="game_2048">2048 Number Merge</option>
+            <option value="snake">Cyber Retro Snake</option>
+            <option value="checkers">Checkers (Draughts)</option>
+            <option value="sudoku">Sudoku Master</option>
+            <option value="tetris">Neon Tetris</option>
+            <option value="pong">Cyber Pong</option>
+            <option value="wordle">Wordle Guess</option>
+            <option value="simon">Simon Says Memory</option>
+            <option value="battleship">Battleship Fleet</option>
+            <option value="breakout">Arcade Breakout</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="profile-save-btn" style="width: 100%;">Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Game Over / Victory / Draw Modal -->
+  <div class="modal-backdrop" id="gameover-modal">
+    <div class="modal-box" style="text-align: center;">
+      <div id="gameover-icon" style="font-size: 3.5rem; margin-bottom: 0.5rem;">🏆</div>
+      <h2 id="gameover-title" style="font-size: 1.85rem; margin-bottom: 0.5rem;">Victory!</h2>
+      <p id="gameover-reason" style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Checkmate! White wins the game.</p>
+      
+      <div id="gameover-rewards" class="portal-card" style="padding: 1rem; margin-bottom: 1.5rem; background: rgba(212, 175, 55, 0.08); border-color: var(--border-gold);">
+        <div style="font-size: 0.85rem; color: var(--accent-gold); font-weight: 700;">Progression Awarded</div>
+        <div id="gameover-xp-text" style="font-size: 1.25rem; font-weight: 800; margin-top: 0.25rem;">+115 XP</div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center;">
+        <button class="btn btn-primary" id="gameover-rematch-btn">🔄 Play Again</button>
+        <button class="btn btn-secondary" id="gameover-library-btn">Game Library</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Chess Pawn Promotion Modal -->
+  <div class="modal-backdrop" id="promotion-modal">
+    <div class="modal-box" style="text-align: center; max-width: 380px;">
+      <h3 style="margin-bottom: 1rem;">Pawn Promotion</h3>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Select which piece to promote your pawn into:</p>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+        <button class="btn btn-secondary promotion-btn" data-piece="q" style="font-size: 2rem;">♛</button>
+        <button class="btn btn-secondary promotion-btn" data-piece="r" style="font-size: 2rem;">♜</button>
+        <button class="btn btn-secondary promotion-btn" data-piece="b" style="font-size: 2rem;">♝</button>
+        <button class="btn btn-secondary promotion-btn" data-piece="n" style="font-size: 2rem;">♞</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Core Scripts in Dependency Order (All 16 Games) -->
+  <script src="audio.js"></script>
+  <script src="storage.js"></script>
+  <script src="chess.js"></script>
+  <script src="tictactoe.js"></script>
+  <script src="connect4.js"></script>
+  <script src="reversi.js"></script>
+  <script src="minesweeper.js"></script>
+  <script src="memory.js"></script>
+  <script src="game_2048.js"></script>
+  <script src="game_snake.js"></script>
+  <script src="game_checkers.js"></script>
+  <script src="game_sudoku.js"></script>
+  <script src="game_tetris.js"></script>
+  <script src="game_pong.js"></script>
+  <script src="game_wordle.js"></script>
+  <script src="game_simon.js"></script>
+  <script src="game_battleship.js"></script>
+  <script src="game_breakout.js"></script>
+  <script src="ai.js"></script>
+  <script src="test_runner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
